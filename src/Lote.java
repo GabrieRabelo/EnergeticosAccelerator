@@ -53,14 +53,42 @@ public class Lote {
         return getValorUnitario() * getQuantidade();
     }
 
-    public double calculaTotalTax() { return calculaValorTotal() + calculaICMS() + calculaIPI() + calculaPIS() +
-            calculaCOFINS();}
+    /**
+     * Soma todos o total os impostos.
+     * @return
+     */
+    public double calculaTotalTax() {
+        return calculaValorTotal() + calculaICMS() + calculaIPI() + calculaPIS() + calculaCOFINS();
+    }
 
+    /**
+     * Calcula o ICMS
+     * @return valor apenas do ICMS calculado em cima do valor total do lote
+     */
     public double calculaICMS() { return calculaValorTotal() * ICMS - calculaValorTotal(); }
+
+    /**
+     * Calcula o IPI
+     * @return valor apenas do IPI calculado em cima do valor total do lote
+     */
     public double calculaIPI() { return calculaValorTotal() * IPI - calculaValorTotal(); }
+
+    /**
+     * Calcula o PIS
+     * @return valor apenas do PIS calculado em cima do valor total do lote
+     */
     public double calculaPIS() { return calculaValorTotal() * PIS - calculaValorTotal(); }
+
+    /**
+     * Calcula o COFINS
+     * @return valor apenas do COFINS calculado em cima do valor total do lote
+     */
     public double calculaCOFINS() { return calculaValorTotal() * COFINS - calculaValorTotal(); }
 
+    /**
+     * Soma apenas os impostos.
+     * @return
+     */
     public double somaImpostos() {return calculaICMS() + calculaIPI() + calculaPIS() + calculaCOFINS(); }
 
     public String toString(){
