@@ -1,39 +1,67 @@
 /**
  * ****** REFAZER ******
- * Esta classe é o objeto Carga, vetor de lotes ... [concluir descrição]
+ * Esta classe é o objeto Carga, vetor de lotes.
  * @author Gabriel Rabelo
  * @version e1 (primeira entrega)
  */
 
 public class Carga{
     private Lote[] carga;
-    private double totalCarga, valorCargaTax;
+    private int pos;
 
     public Carga(){
         carga = new Lote[20];
-        totalCarga = 0;
-        valorCargaTax = 0;
+        pos = 0;
     }
 
-    public double getTotalCarga() { return totalCarga; }
-    public double getValorCargaTax() { return valorCargaTax; }
 
-    /**
-     * Este método percorre o vetor e verifica se algum índice está nulo
-     * @return false se encontrar algum índice diferente de nulo
-     */
-    public boolean estaVazia(){
+    public boolean estaCheia(){
         for(int i=0;i<carga.length;i++){
-            if(carga[i]!=null) return false;
+            if(carga[i]==null) return false;
         }
         return true;
     }
 
-    public void calculaTotalCarga(){
-        if(estaVazia()) return;
-        for(int i=0; i<carga.length;i++){
+    public boolean addLoteB(String cliente, int quantidade) {
+        if (estaCheia()) return false;
+        carga[pos] = new Lote(cliente, quantidade);
+        pos++;
+        return true;
+    }
 
+    public double totalImpostos(){
+        double soma=0;
+        for(int i = 0; i<carga.length;i++){
+            if(carga[i]!=null){
+                soma += carga[i].somaImpostos();
+            }
         }
+        return soma;
+    }
+
+    public double totalMercadorias(){
+        double soma=0;
+        for(int i = 0; i<carga.length;i++){
+            if(carga[i]!=null){
+                soma += carga[i].calculaValorTotal();
+            }
+        }
+        return soma;
+    }
+
+    public String toString(){
+        double totalGeral = totalImpostos() + totalMercadorias();
+        String msg="";
+
+        for(int i=0; i<carga.length;i++){
+            if(carga[i]==null) break;
+            msg += carga[i] + " ";
+        }
+
+        msg += "\n\nTotal Impostos: R$" + totalImpostos() + "\nTotal Mercadorias: R$" + totalMercadorias() +
+        "\nTotal Geral: R$" + totalGeral;
+
+        return msg;
     }
 
 
