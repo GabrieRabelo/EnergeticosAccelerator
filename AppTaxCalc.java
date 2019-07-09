@@ -16,15 +16,16 @@ public class AppTaxCalc {
         int desc=0, qntDesc=0;
 
         do{
-            System.out.println("\fCalculadora AcceleratorTax");
+            System.out.println("\nCalculadora AcceleratorTax");
             System.out.println("Valor do energético: " + NumberFormat.getCurrencyInstance().format(valorUnitario));
             if(desc>0 && qntDesc>0)
-                System.out.println("Desconto aplicado: " + desc + "% ,quando vendido mais de " + qntDesc + " produtos.");
+                System.out.println("Desconto aplicado: " + desc + "%, quando vendido mais de " + qntDesc + " energéticos.");
             else System.out.println("Sem desconto aplicado.");
             System.out.println("\n   ===Menu===");
             System.out.println("\n1 - Gerar nota fiscal");
             System.out.println("2 - Alterar valor");
             System.out.println("3 - Alterar desconto");
+            System.out.println("4 - Redefinir valores padrão");
             System.out.println("0 - Sair");
             opcao = input.nextInt();
 
@@ -35,19 +36,28 @@ public class AppTaxCalc {
                     do{
                         System.out.println("Informe o novo valor do energético: ");
                         valorUnitario = input.nextDouble();
-                    }while(valorUnitario<=0); break;
+                        if(valorUnitario == 0 ) { valorUnitario = 4.5; break; }
+                    }while(valorUnitario<0);
+                    break;
                 case 3 :
                     do {
-                        System.out.println("Quanto de desconto você deseja aplicar? (quantidade de porcentagem) EX: 10");
+                        System.out.println("Quantos porcento de desconto você deseja aplicar? (Sem usar símbolo (%)) EX: 10");
                         desc = input.nextInt();
                         if(desc == 0) { System.out.println("Desconto zerado."); return; }
                     }while(desc<0 || desc>99);
                     do{
-                        System.out.println("Digite a quantidade produtos que torna este desconto válido: ");
+                        System.out.println("Digite a quantidade energéticos que torna este desconto válido: ");
                         qntDesc = input.nextInt();
-                    }while(qntDesc<1); break;
+                    }while(qntDesc<1);
+                    break;
                 case 4:
-                    desc = 0; qntDesc = 0; break;
+                    if(desc == 0 && qntDesc==0 && valorUnitario == 4.5){
+                        System.out.println("Valores já estão padrão");
+                        break;
+                    }
+                    desc = 0; qntDesc = 0; valorUnitario = 4.5;
+                    System.out.println("Valores redefinidos.");
+                    break;
                 case 0 : return;
                 default : System.out.println("Opcao Inválida");
             }
@@ -82,7 +92,7 @@ public class AppTaxCalc {
 
             input.nextLine();
             addLote = umaCarga.addLoteB(cliente, quantidade, valorProduto, desc, qntDesc);
-            if (!addLote) { System.out.println("Não foi possível inserir este registro."); break; }
+            if (!addLote) { System.out.println("Limite de registros atingido."); break; }
             item++;
         }while(addLote);
 

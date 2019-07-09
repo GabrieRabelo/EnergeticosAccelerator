@@ -115,6 +115,7 @@ public class Lote {
 
     public String toString(){
         return "\n\nCliente: " + getCliente() +
+                "\nValor mercadorias: " + NumberFormat.getCurrencyInstance().format(calculaValorTotal()) +
                 "\nICMS: " + NumberFormat.getCurrencyInstance().format(calculaICMS()) +
                 "\nIPI: " + NumberFormat.getCurrencyInstance().format(calculaIPI()) +
                 "\nPIS: " + NumberFormat.getCurrencyInstance().format(calculaPIS()) +
