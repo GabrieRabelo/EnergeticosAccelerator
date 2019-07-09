@@ -9,20 +9,29 @@ import java.text.NumberFormat;
 public class Lote {
     private String cliente;
     private int quantidade;
-    private float valorUnitario;
-    private float ICMS, IPI, PIS, COFINS;
+    private double valorUnitario;
+    private double ICMS, IPI, PIS, COFINS;
+    private boolean desconto;
 
     /**
      * Construtor da classe, inclui impostos e valor unitário do produto
      * @param cliente Nome do cliente
      * @param quantidade quantidade do produto para realizar o cálculo.
      */
-    public Lote(String cliente, int quantidade){
+    public Lote(String cliente, int quantidade, double valorUnitario, int desc, int qntDesc){
         if(Character.isLetter(cliente.charAt(0))) this.cliente = cliente ;
             else this.cliente = "Não informado";
-        if (quantidade < 1) this.quantidade = 0;
+
+        if (quantidade < 1) this.quantidade = 1;
             else this.quantidade = quantidade;
-        valorUnitario = 4.5f ;
+
+        if(valorUnitario<0) this.valorUnitario = 4.5f ;
+        else this.valorUnitario = valorUnitario;
+
+        if(desc > 0 && quantidade >= qntDesc) {
+            this.valorUnitario = valorUnitario - calculaDesconto(desc, valorUnitario);
+            desconto = true;
+        }
         ICMS = 1.18f;
         IPI = 1.04f;
         PIS = 1.0186f;
@@ -93,6 +102,17 @@ public class Lote {
      */
     public double somaImpostos() {return calculaICMS() + calculaIPI() + calculaPIS() + calculaCOFINS(); }
 
+    /**
+     * Este método calcula o valor a ser descontado do produto, a partir de um valor pré-definido na classe main.
+     * @param desconto desconto em unidades inteiras entre 0 e 100.
+     * @param valorUnitario valor unitário do produto.
+     * @return
+     */
+    public double calculaDesconto(int desconto, double valorUnitario){
+        double desc = valorUnitario * desconto / 100;
+        return desc;
+    }
+
     public String toString(){
         return "\n\nCliente: " + getCliente() +
                 "\nICMS: " + NumberFormat.getCurrencyInstance().format(calculaICMS()) +
@@ -100,5 +120,6 @@ public class Lote {
                 "\nPIS: " + NumberFormat.getCurrencyInstance().format(calculaPIS()) +
                 "\nCOFINS: " + NumberFormat.getCurrencyInstance().format(calculaCOFINS()) +
                 "\nTotal: " + NumberFormat.getCurrencyInstance().format(calculaTotalTax());
+
     }
 }

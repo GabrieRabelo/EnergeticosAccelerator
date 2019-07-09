@@ -36,9 +36,9 @@ public class Carga{
      * @param quantidade quantidade de items
      * @return true se inserido corretamente
      */
-    public boolean addLoteB(String cliente, int quantidade) {
+    public boolean addLoteB(String cliente, int quantidade, double valorUnitario, int desc, int qntDesc) {
         if (estaCheia()) return false;
-        carga[pos] = new Lote(cliente, quantidade);
+        carga[pos] = new Lote(cliente, quantidade, valorUnitario, desc, qntDesc);
         pos++;
         return true;
     }

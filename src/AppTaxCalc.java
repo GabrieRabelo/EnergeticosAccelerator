@@ -1,23 +1,53 @@
+import java.text.NumberFormat;
 import java.util.Scanner;
+
+/**
+ * Esta classe é a Main do aplicativo calculador de taxa,  desenvolvido para o processo seletivo
+ * da Aceleradora Agil ThoughtWorks.
+ * @author Gabriel Rabelo
+ * @version e1 (primeira entrega)
+ */
 
 public class AppTaxCalc {
     public static void main (String[] args){
         Scanner input = new Scanner(System.in);
         int opcao;
+        double valorUnitario=4.5;
+        int desc=0, qntDesc=0;
 
         do{
             System.out.println("\fCalculadora AcceleratorTax");
-            System.out.println("   ===Menu===");
+            System.out.println("Valor do energético: " + NumberFormat.getCurrencyInstance().format(valorUnitario));
+            if(desc>0 && qntDesc>0)
+                System.out.println("Desconto aplicado: " + desc + "% ,quando vendido mais de " + qntDesc + " produtos.");
+            else System.out.println("Sem desconto aplicado.");
+            System.out.println("\n   ===Menu===");
             System.out.println("\n1 - Gerar nota fiscal");
-            System.out.println("2 - Configurar desconto");
+            System.out.println("2 - Alterar valor");
+            System.out.println("3 - Alterar desconto");
             System.out.println("0 - Sair");
             opcao = input.nextInt();
 
             switch(opcao) {
                 case 1 :
-                    notaFiscal(); break;
-                case 2 :
-                    System.out.println("Em construção."); break;
+                    notaFiscal(valorUnitario, desc, qntDesc); break;
+                case 2:
+                    do{
+                        System.out.println("Informe o novo valor do energético: ");
+                        valorUnitario = input.nextDouble();
+                    }while(valorUnitario<=0); break;
+                case 3 :
+                    do {
+                        System.out.println("Quanto de desconto você deseja aplicar? (quantidade de porcentagem) EX: 10");
+                        desc = input.nextInt();
+                        if(desc == 0) { System.out.println("Desconto zerado."); return; }
+                    }while(desc<0 || desc>99);
+                    do{
+                        System.out.println("Digite a quantidade produtos que torna este desconto válido: ");
+                        qntDesc = input.nextInt();
+                    }while(qntDesc<1); break;
+                case 4:
+                    desc = 0; qntDesc = 0; break;
                 case 0 : return;
                 default : System.out.println("Opcao Inválida");
             }
@@ -26,7 +56,7 @@ public class AppTaxCalc {
 
     }
 
-    private static void notaFiscal(){
+    private static void notaFiscal(double valorProduto, int desc, int qntDesc){
         Carga umaCarga = new Carga();
         Scanner input = new Scanner(System.in);
 
@@ -51,7 +81,7 @@ public class AppTaxCalc {
             if(quantidade <= 0) break;
 
             input.nextLine();
-            addLote = umaCarga.addLoteB(cliente, quantidade);
+            addLote = umaCarga.addLoteB(cliente, quantidade, valorProduto, desc, qntDesc);
             if (!addLote) { System.out.println("Não foi possível inserir este registro."); break; }
             item++;
         }while(addLote);
