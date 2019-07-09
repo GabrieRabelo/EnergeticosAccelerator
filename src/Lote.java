@@ -1,3 +1,5 @@
+import java.text.NumberFormat;
+
 /**
  * Esta classe é o objeto Lote, utilizado na classe Carga, como vetor.
  * @author Gabriel Rabelo
@@ -7,8 +9,8 @@
 public class Lote {
     private String cliente;
     private int quantidade;
-    private double valorUnitario;
-    private double ICMS, IPI, PIS, COFINS;
+    private float valorUnitario;
+    private float ICMS, IPI, PIS, COFINS;
 
     /**
      * Construtor da classe, inclui impostos e valor unitário do produto
@@ -20,11 +22,11 @@ public class Lote {
             else this.cliente = "Não informado";
         if (quantidade < 1) this.quantidade = 0;
             else this.quantidade = quantidade;
-        valorUnitario = 4.5;
-        ICMS = 1.18;
-        IPI = 1.04;
-        PIS = 1.0186;
-        COFINS = 1.0854;
+        valorUnitario = 4.5f ;
+        ICMS = 1.18f;
+        IPI = 1.04f;
+        PIS = 1.0186f;
+        COFINS = 1.0854f;
     }
 
     /**
@@ -92,7 +94,11 @@ public class Lote {
     public double somaImpostos() {return calculaICMS() + calculaIPI() + calculaPIS() + calculaCOFINS(); }
 
     public String toString(){
-        return "\n\nCliente: " + getCliente() + "\nICMS: R$" + calculaICMS() + "\nIPI: R$" + calculaIPI() + "\nPIS: R$" +
-                calculaPIS() + "\nCOFINS: R$" + calculaCOFINS() + "\nTotal: R$" + calculaTotalTax();
+        return "\n\nCliente: " + getCliente() +
+                "\nICMS: " + NumberFormat.getCurrencyInstance().format(calculaICMS()) +
+                "\nIPI: " + NumberFormat.getCurrencyInstance().format(calculaIPI()) +
+                "\nPIS: " + NumberFormat.getCurrencyInstance().format(calculaPIS()) +
+                "\nCOFINS: " + NumberFormat.getCurrencyInstance().format(calculaCOFINS()) +
+                "\nTotal: " + NumberFormat.getCurrencyInstance().format(calculaTotalTax());
     }
 }

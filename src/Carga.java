@@ -1,3 +1,5 @@
+import java.text.NumberFormat;
+
 /**
  *
  * Esta classe é o objeto Carga, vetor de lotes.
@@ -69,6 +71,11 @@ public class Carga{
         return soma;
     }
 
+    /**
+     * Este método varre o vetor buscando os toStrings de lote, que contêm as informações necessárias para
+     * fazer o calculo do total, apresentado no final da varredura.
+     * @return informacoes de cada lote, então o total do vetor inteiro
+     */
     public String toString(){
         double totalGeral = totalImpostos() + totalMercadorias();
         String msg="";
@@ -78,8 +85,9 @@ public class Carga{
             msg += carga[i] + " ";
         }
 
-        msg += "\n\nTotal Impostos: R$" + totalImpostos() + "\nTotal Mercadorias: R$" + totalMercadorias() +
-        "\nTotal Geral: R$" + totalGeral;
+        msg += "\n\nTotal Impostos: " + NumberFormat.getCurrencyInstance().format(totalImpostos()) +
+                "\nTotal Mercadorias: " + NumberFormat.getCurrencyInstance().format(totalMercadorias()) +
+                "\nTotal Geral: " + NumberFormat.getCurrencyInstance().format(totalGeral);
 
         return msg;
     }
