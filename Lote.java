@@ -18,7 +18,7 @@ public class Lote {
      * @param cliente Nome do cliente
      * @param quantidade quantidade do produto para realizar o cálculo.
      */
-    public Lote(String cliente, int quantidade, double valorUnitario, int desc, int qntDesc){
+    public Lote(String cliente, int quantidade, double valorUnitario, double desc, int qntDesc){
         if(Character.isLetter(cliente.charAt(0))) this.cliente = cliente ;
             else this.cliente = "Não informado";
 
@@ -56,6 +56,9 @@ public class Lote {
      */
     public double getValorUnitario(){ return valorUnitario; }
 
+    public boolean isDesconto(){
+        return desconto;
+    }
     /**
      * Calcula o valor total do lote
      * @return valor total;
@@ -108,19 +111,21 @@ public class Lote {
      * @param valorUnitario valor unitário do produto.
      * @return
      */
-    public double calculaDesconto(int desconto, double valorUnitario){
+    public double calculaDesconto(double desconto, double valorUnitario){
         double desc = valorUnitario * desconto / 100;
         return desc;
     }
 
     public String toString(){
-        return "\n\nCliente: " + getCliente() +
+        String msg = "\n\nCliente: " + getCliente() +
                 "\nValor mercadorias: " + NumberFormat.getCurrencyInstance().format(calculaValorTotal()) +
                 "\nICMS: " + NumberFormat.getCurrencyInstance().format(calculaICMS()) +
                 "\nIPI: " + NumberFormat.getCurrencyInstance().format(calculaIPI()) +
                 "\nPIS: " + NumberFormat.getCurrencyInstance().format(calculaPIS()) +
                 "\nCOFINS: " + NumberFormat.getCurrencyInstance().format(calculaCOFINS()) +
                 "\nTotal: " + NumberFormat.getCurrencyInstance().format(calculaTotalTax());
+        if (isDesconto()) msg+= " (Valor com desconto)";
+        return msg;
 
     }
 }

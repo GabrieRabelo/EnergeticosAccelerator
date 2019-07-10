@@ -12,12 +12,12 @@ public class AppTaxCalc {
     public static void main (String[] args){
         Scanner input = new Scanner(System.in);
         int opcao;
-        double valorUnitario=4.5;
-        int desc=0, qntDesc=0;
+        double valorUnitario=4.5, desc = 0;
+        int qntDesc=0;
 
         do{
             System.out.println("\nCalculadora AcceleratorTax");
-            System.out.println("Valor do energético: " + NumberFormat.getCurrencyInstance().format(valorUnitario));
+            System.out.println("\nValor do energético: " + NumberFormat.getCurrencyInstance().format(valorUnitario));
             if(desc>0 && qntDesc>0)
                 System.out.println("Desconto aplicado: " + desc + "%, quando vendido mais de " + qntDesc + " energéticos.");
             else System.out.println("Sem desconto aplicado.");
@@ -42,11 +42,12 @@ public class AppTaxCalc {
                 case 3 :
                     do {
                         System.out.println("Quantos porcento de desconto você deseja aplicar? (Sem usar símbolo (%)) EX: 10");
-                        desc = input.nextInt();
-                        if(desc == 0) { System.out.println("Desconto zerado."); return; }
+                        desc = input.nextDouble();
+                        if(desc == 0) { System.out.println("Desconto zerado."); break; }
+                        if(desc>99) { System.out.println("Desconto inválido."); }
                     }while(desc<0 || desc>99);
                     do{
-                        System.out.println("Digite a quantidade energéticos que torna este desconto válido: ");
+                        System.out.println("Digite a quantidade de energéticos que torna este desconto válido: ");
                         qntDesc = input.nextInt();
                     }while(qntDesc<1);
                     break;
@@ -66,7 +67,7 @@ public class AppTaxCalc {
 
     }
 
-    private static void notaFiscal(double valorProduto, int desc, int qntDesc){
+    private static void notaFiscal(double valorProduto, double desc, int qntDesc){
         Carga umaCarga = new Carga();
         Scanner input = new Scanner(System.in);
 
