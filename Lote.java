@@ -28,7 +28,7 @@ public class Lote {
         if(valorUnitario<0) this.valorUnitario = 4.5;
         else this.valorUnitario = valorUnitario;
 
-        if(desc > 0 && quantidade >= qntDesc) {
+        if((desc > 0) && (quantidade >= qntDesc)) {
             this.valorUnitario = valorUnitario - calculaDesconto(desc, valorUnitario);
             desconto = true;
         }

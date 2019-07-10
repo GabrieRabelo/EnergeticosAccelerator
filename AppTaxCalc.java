@@ -39,7 +39,8 @@ public class AppTaxCalc {
                     break;
                 case 3 :
                     desc = alteraDesconto();
-                    qntDesc = altearQntDesconto();
+                    if (desc>0)
+                        qntDesc = altearQntDesconto();
                     break;
                 case 4:
                     if((desc == 0) && (qntDesc == 0) && (valorUnitario == 4.5)){
