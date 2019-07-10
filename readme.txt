@@ -1,7 +1,7 @@
-Ol·,
-Para elaborar esta soluÁ„o foram utilizado conhecimentos obtidos na disciplina de fundamentos de programaÁ„o (1∫ semestre de Engenharia de Software). Utilizando vetores de objetos foi possÌvel chegar a uma soluÁ„o mais r·pida, talvez n„o a melhor soluÁ„o, porÈm tenho muito a aprender :)
-ApÛs deparar com os seguintes erros: String n„o sendo salva no segundo looping, e o formato do dinheiro sendo impresso
-com muitos dÌgitos depois da vÌrgula, busquei informaÁıes necess·rias no site StackOverflow(pt) para realizar as devidas manutenÁıes.
-
+Ol√°,
+Para elaborar esta solu√ß√£o foram utilizado conhecimentos obtidos na disciplina de fundamentos de programa√ß√£o (1¬∫ semestre de Engenharia de Software). Utilizando vetores de objetos foi poss√≠vel chegar a uma solu√ß√£o mais r√°pida, talvez n√£o a melhor solu√ß√£o, por√©m tenho muito a aprender :)
+Ap√≥s deparar com os seguintes erros: String n√£o sendo salva no segundo looping, e o formato do dinheiro sendo impresso
+com muitos d√≠gitos depois da v√≠rgula, busquei informa√ß√µes necess√°rias no site StackOverflow(pt) para realizar as devidas manuten√ß√µes.
+Para a atividade "bonus", foram criados duas vari√°veis que come√ßam zeradas na inicializa√ß√£o do aplicativo, ao alter√°-las diminui-se o valor do produto, modificando o calculo dos impostos e decrescendo o valor do produto, assim tornando o desconto existente.
 Este e mais projetos amadores (feitos durante o primeiro semestre da faculdade) podem ser encontrados no meu github:
 https://github.com/GabrieRabelo
