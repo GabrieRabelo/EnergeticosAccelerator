@@ -12,15 +12,17 @@ public class AppTaxCalc {
     public static void main (String[] args){
         Scanner input = new Scanner(System.in);
         int opcao;
-        double valorUnitario=4.5, desc = 0;
+        double valorUnitario=4.5;
+        double desc = 0;
         int qntDesc=0;
 
-        do{
+        do {
             System.out.println("\nCalculadora AcceleratorTax");
             System.out.println("\nValor do energético: " + NumberFormat.getCurrencyInstance().format(valorUnitario));
-            if(desc>0 && qntDesc>0)
+            if (desc > 0){
                 System.out.println("Desconto aplicado: " + desc + "%, quando vendido mais de " + qntDesc + " energéticos.");
-            else System.out.println("Sem desconto aplicado.");
+            } else System.out.println("Sem desconto aplicado.");
+
             System.out.println("\n   ===Menu===");
             System.out.println("\n1 - Gerar nota fiscal");
             System.out.println("2 - Alterar valor");
@@ -28,38 +30,27 @@ public class AppTaxCalc {
             System.out.println("4 - Redefinir valores padrão");
             System.out.println("0 - Sair");
             opcao = input.nextInt();
-
             switch(opcao) {
                 case 1 :
-                    notaFiscal(valorUnitario, desc, qntDesc); break;
+                    notaFiscal(valorUnitario, desc, qntDesc);
+                    break;
                 case 2:
-                    do{
-                        System.out.println("Informe o novo valor do energético: ");
-                        valorUnitario = input.nextDouble();
-                        if(valorUnitario == 0 ) { valorUnitario = 4.5; break; }
-                    }while(valorUnitario<0);
+                    valorUnitario = alteraValor();
                     break;
                 case 3 :
-                    do {
-                        System.out.println("Quantos porcento de desconto você deseja aplicar? (Sem usar símbolo (%)) EX: 10");
-                        desc = input.nextDouble();
-                        if(desc == 0) { System.out.println("Desconto zerado."); break; }
-                        if(desc>99) { System.out.println("Desconto inválido."); }
-                    }while(desc<0 || desc>99);
-                    do{
-                        System.out.println("Digite a quantidade de energéticos que torna este desconto válido: ");
-                        qntDesc = input.nextInt();
-                    }while(qntDesc<1);
+                    desc = alteraDesconto();
+                    qntDesc = altearQntDesconto();
                     break;
                 case 4:
-                    if(desc == 0 && qntDesc==0 && valorUnitario == 4.5){
+                    if((desc == 0) && (qntDesc == 0) && (valorUnitario == 4.5)){
                         System.out.println("Valores já estão padrão");
                         break;
                     }
                     desc = 0; qntDesc = 0; valorUnitario = 4.5;
                     System.out.println("Valores redefinidos.");
                     break;
-                case 0 : return;
+                case 0 :
+                    System.out.println("Desenvolvido por Gabriel Rabelo."); return;
                 default : System.out.println("Opcao Inválida");
             }
 
@@ -104,6 +95,39 @@ public class AppTaxCalc {
         System.out.println("\nDigite qualquer coisa para retornar ao menu.");
         int menu = input.nextInt();
 
+    }
+
+    private static double alteraValor(){
+        Scanner input = new Scanner(System.in);
+        double valorUnitario;
+        do{
+            System.out.println("Informe o novo valor do energético: ");
+            valorUnitario = input.nextDouble();
+            if(valorUnitario == 0 ) { valorUnitario = 4.5; break; }
+        }while(valorUnitario<0);
+        return valorUnitario;
+    }
+
+    private static double alteraDesconto(){
+        Scanner input = new Scanner(System.in);
+        double desc;
+        do {
+            System.out.println("Quantos porcento de desconto você deseja aplicar? (Sem usar símbolo (%)) EX: 10");
+            desc = input.nextDouble();
+            if(desc == 0) { System.out.println("Desconto zerado."); break; }
+            if(desc>99) { System.out.println("Desconto inválido."); }
+        }while(desc<0 || desc>99);
+        return desc;
+    }
+
+    private static int altearQntDesconto(){
+        Scanner input = new Scanner(System.in);
+        int qntDesc;
+        do{
+            System.out.println("Digite a quantidade de energéticos que torna este desconto válido: ");
+            qntDesc = input.nextInt();
+        }while(qntDesc<1);
+        return qntDesc;
     }
 }
 

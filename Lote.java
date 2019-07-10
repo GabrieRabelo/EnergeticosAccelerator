@@ -25,17 +25,17 @@ public class Lote {
         if (quantidade < 1) this.quantidade = 1;
             else this.quantidade = quantidade;
 
-        if(valorUnitario<0) this.valorUnitario = 4.5f ;
+        if(valorUnitario<0) this.valorUnitario = 4.5;
         else this.valorUnitario = valorUnitario;
 
         if(desc > 0 && quantidade >= qntDesc) {
             this.valorUnitario = valorUnitario - calculaDesconto(desc, valorUnitario);
             desconto = true;
         }
-        ICMS = 1.18f;
-        IPI = 1.04f;
-        PIS = 1.0186f;
-        COFINS = 1.0854f;
+        ICMS = 1.18;
+        IPI = 1.04;
+        PIS = 1.0186;
+        COFINS = 1.0854;
     }
 
     /**
@@ -46,16 +46,20 @@ public class Lote {
 
     /**
      * Getter da quantidade, utilizado para realizar cálculos dos valores.
-     * @return
+     * @return quantidade de energéticos
      */
     public int getQuantidade(){ return quantidade; }
 
     /**
      * Getter do valor unitário, utilizado para realizar calculo dos valores.
-     * @return
+     * @return valor unitário do produto
      */
     public double getValorUnitario(){ return valorUnitario; }
 
+    /**
+     * Método retorna se o desconto é aplicado ou não
+     * @return boolean do desconto
+     */
     public boolean isDesconto(){
         return desconto;
     }
@@ -65,14 +69,6 @@ public class Lote {
      */
     public double calculaValorTotal(){
         return getValorUnitario() * getQuantidade();
-    }
-
-    /**
-     * Soma todos o total os impostos.
-     * @return
-     */
-    public double calculaTotalTax() {
-        return calculaValorTotal() + calculaICMS() + calculaIPI() + calculaPIS() + calculaCOFINS();
     }
 
     /**
@@ -101,19 +97,26 @@ public class Lote {
 
     /**
      * Soma apenas os impostos.
-     * @return
+     * @return retorna a soma dos impostos
      */
     public double somaImpostos() {return calculaICMS() + calculaIPI() + calculaPIS() + calculaCOFINS(); }
+
+    /**
+     * Este método retorna o valor total dos produtos, incluindo impostos.
+     * @return valor total
+     */
+    public double calculaTotalTax() {
+        return calculaValorTotal() + somaImpostos();
+    }
 
     /**
      * Este método calcula o valor a ser descontado do produto, a partir de um valor pré-definido na classe main.
      * @param desconto desconto em unidades inteiras entre 0 e 100.
      * @param valorUnitario valor unitário do produto.
-     * @return
+     * @return retorna o valor a ser decrescido do preço original.
      */
     public double calculaDesconto(double desconto, double valorUnitario){
-        double desc = valorUnitario * desconto / 100;
-        return desc;
+        return valorUnitario * desconto / 100;
     }
 
     public String toString(){
